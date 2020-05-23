@@ -590,7 +590,11 @@ export class Pass {
 			throw new Error(formatMessage("TRSTYPE_REQUIRED"));
 		}
 
-		passFile[this.type]["transitType"] = this[transitType];
+		if (this.type !== "generic") {
+			passFile[this.type]["transitType"] = this[transitType];
+		} else {
+			delete passFile[this.type]["transitType"];
+		}
 
 		return Buffer.from(JSON.stringify(passFile));
 	}
